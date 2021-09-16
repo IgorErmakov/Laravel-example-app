@@ -1,13 +1,13 @@
 <template>
 
-    <li class="list-group-item" :class="{'active': '1' === itm.is_completed}">
+    <div class="flex justify-between cursor-pointer bg-gradient-to-r from-green-100 to-green-50 border-3 p-2 my-2 rounded border-gray-50 hover:from-green-200" :class="{'text-white from-green-500 to-green-300': '1' === itm.is_completed}">
 
-        <span class="name" @click="toggleItem" :id="'name-' + itm.id">
+        <div class="pt-2 pl-2 font-mono" @click="toggleItem" :id="'name-' + itm.id">
             {{ itm.name }}
-        </span>
+        </div>
 
-        <span class="delete" @click="deleteItem">x</span>
-    </li>
+        <button class="py-2 mr-4 text-black-800 font-weight-bold font-mono font-xl" @click="deleteItem" title="Delete">x</button>
+    </div>
 
 </template>
 

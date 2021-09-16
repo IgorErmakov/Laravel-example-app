@@ -1,2 +1,8 @@
 # Laravel-example-app
-Just for tests
+Test project on Laravel / Vue.js / Tailwind CSS
+
+
+Installation:
+sail up
+sail ssh
+php artisan migrate

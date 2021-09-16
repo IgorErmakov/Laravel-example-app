@@ -6,24 +6,3 @@ input,
 textarea {
   border-width: 1px;
 }
-
-.list-group-item {
-  display: flex;
-  justify-content: space-between;
-}
-.list-group-item.active {
-  text-decoration: line-through;
-}
-.list-group-item span.delete {
-  display: block;
-  padding: 10px;
-  height: 40px;
-  background-color: #f00;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-.list-group-item .name {
-  display: block;
-  line-height: 39px;
-}
