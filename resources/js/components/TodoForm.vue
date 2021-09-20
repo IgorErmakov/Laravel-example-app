@@ -58,7 +58,7 @@
 
                     item.id = response.data.id
 
-                    this.$emit('add_item', item)
+                    this.$store.commit('addItem', item)
 
                 }).catch(e => {
 

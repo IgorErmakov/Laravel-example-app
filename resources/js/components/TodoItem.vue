@@ -18,12 +18,19 @@
 
         methods: {
             toggleItem() {
-                this.itm.is_completed = '1' === this.itm.is_completed ? '0' : '1'
-                axios.post(`/todo/toggle-completed/${this.itm.id}`, {is_completed: this.itm.is_completed})
+
+                const itm = {
+                    id: this.itm.id,
+                    is_completed: '1' === this.itm.is_completed ? '0' : '1'
+                }
+
+                this.$store.commit('updateItem', itm)
+
+                axios.post(`/todo/toggle-completed/${itm.id}`, itm)
             },
 
             deleteItem() {
-                this.$emit('delete_item')
+                this.$store.commit('deleteItem', {id: this.itm.id})
             }
         }
     }

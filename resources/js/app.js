@@ -1,45 +1,43 @@
 require('./bootstrap');
 require('alpinejs');
+import {mapMutations} from 'vuex'
+const store = require('./store')
 
-import * as EventHandlers from './event-handlers';
+function lg(v) { console.log(v) }
+
 
 window.app = new Vue({
 
     el: '#app',
-
-    data: {
-        items: [],
-    },
+    store,
+    components: Vue.options.components,
 
     mounted() {
 
         axios.get('/todo/get-items').then(response => {
-            this.items = response.data.data
+            this.$store.commit('setItems', response.data.data)
         })
+    },
+
+    computed: {
+        items() {
+            return this.$store.state.items
+        }
     },
 
     methods: {
 
-        addItem(item)
-        {
-            this.items.unshift(item)
-        },
-
-        removeItem(id, idx)
-        {
-
-            this.items.splice(idx, 1)
-
-            axios.delete(`/todo/delete/${id}`)
-        },
+        ...mapMutations([
+            'addItem',
+            'deleteItem',
+            'updateItem'
+        ])
     }
 })
 
 
-
-const handler = new EventHandlers;
-
+// callbacks from the server ECHO update (websockets)
 Echo.channel('todos')
-    .listen('.todo.created', handler.todoCreated)
-    .listen('.todo.updated', handler.todoUpdated)
-    .listen('.todo.deleted', handler.todoDeleted)
+    .listen('.todo.created', data => app.addItem(data.todo))
+    .listen('.todo.updated', data => app.updateItem(data.todo))
+    .listen('.todo.deleted', data => app.deleteItem({id: data.todoId, isSkipServerUpdate: false}))

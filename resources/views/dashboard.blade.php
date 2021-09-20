@@ -20,8 +20,7 @@
             <div class="list-group mt-5">
                 <todo-item v-for="(itm, idx) in items"
                            :key="itm.id"
-                           v-bind:itm="itm"
-                           v-on:delete_item="removeItem(itm.id, idx)"
+                           v-bind:itm="itm""
 
                 ></todo-item>
             </div>

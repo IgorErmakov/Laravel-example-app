@@ -1,3 +1,6 @@
+import Echo from 'laravel-echo';
+import Vuex from 'vuex'
+
 window._ = require('lodash');
 
 /**
@@ -14,7 +17,10 @@ window.axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('m
 
 window.Vue = require("vue/dist/vue.min");
 
-import Echo from 'laravel-echo';
+window.Vuex = Vuex
+
+window.Vue.use(Vuex)
+
 
 window.Pusher = require('pusher-js');
 
@@ -27,6 +33,7 @@ window.Echo = new Echo({
 
 
 const files = require.context('./', true, /\.vue$/i)
+
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
