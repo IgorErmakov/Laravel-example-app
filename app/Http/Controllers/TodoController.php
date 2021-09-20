@@ -33,6 +33,9 @@ class TodoController extends Controller
      */
     function index(Request $request)
     {
+        // $items = $this->_repository->getLatest();
+        // dispatch(new \App\Jobs\TodoJob($items->first()));
+
         $userId = 1;
         return view('todo.index', compact('userId'));
     }
@@ -61,12 +64,8 @@ class TodoController extends Controller
 
         $record = $this->_repository->create($request->all());
 
-        $event = new AddTodoEvent($record);
-
-
-
         // send the event to other clients
-        broadcast($event)->toOthers();
+        broadcast(new AddTodoEvent($record))->toOthers();
 
         return [
             'id' => $record->id
