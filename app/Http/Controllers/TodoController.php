@@ -61,8 +61,12 @@ class TodoController extends Controller
 
         $record = $this->_repository->create($request->all());
 
+        $event = new AddTodoEvent($record);
+
+
+
         // send the event to other clients
-        broadcast(new AddTodoEvent($record))->toOthers();
+        broadcast($event)->toOthers();
 
         return [
             'id' => $record->id
